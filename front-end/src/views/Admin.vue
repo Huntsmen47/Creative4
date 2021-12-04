@@ -1,33 +1,39 @@
 <template>
 <div class="admin">
-  <h1>The Admin Page!</h1>
+  <h1>Books Edit Page!</h1>
 <div class="heading">
   <div class="circle">1</div>
-  <h2>Add an Item</h2>
+  <h2>Add a book</h2>
 </div>
-<div class="add">
-  <div class="form">
-    <input v-model="title" placeholder="Title">
-    <input v-model="author" placeholder="Author">
-    <input v-model="genre" placeholder="Genre">
-    <p></p>
-    <textarea v-model = "description" placeholder = "Description"
-              rows="5" cols="33">
-    </textarea>
-    <input type="file" name="photo" @change="fileChanged">
-    <button @click="upload">Upload</button>
+<div class="firstFunc">
+  <div class="add">
+    <div class="form">
+      <p><b>Title</b></p>
+      <input v-model="title" placeholder="Title">
+      <p><b>Author</b></p>
+      <input v-model="author" placeholder="Author">
+      <p><b>Genre</b></p>
+      <input v-model="genre" placeholder="Genre">
+      <p><b>Description</b></p>
+      <textarea v-model = "description" placeholder = "Description"
+                rows="5" cols="33">
+      </textarea>
+      <input type="file" name="photo" @change="fileChanged">
+      <button @click="upload">Upload</button>
+    </div>
   </div>
   <div class="upload" v-if="addItem">
-    <h2>{{addItem.title}}</h2>
-    <h2>{{addItem.author}}</h2>
-    <h2>{{addItem.genre}}</h2>
-    <h2>{{addItem.description}}</h2>
+    <h1>Title:  {{addItem.title}}</h1>
+    <h1>Author:  {{addItem.author}}</h1>
+    <h1>Genre:  {{addItem.genre}}</h1>
+    <h1>Description: <br>{{addItem.description}}</h1>
     <img :src="addItem.path" />
   </div>
 </div>
+
 <div class="heading">
   <div class="circle">2</div>
-  <h2>Edit/Delete an Item</h2>
+  <h2>Edit/Delete a book</h2>
 </div>
 <div class="edit">
   <div class="form">
@@ -38,13 +44,13 @@
     </div>
   </div>
   <div class="upload" v-if="findItem">
-    <p>Title</p>
+    <p><b>Title</b></p>
     <input v-model="findItem.title">
-    <p>Author</p>
+    <p><b>Author</b></p>
     <input v-model="findItem.author">
-    <p>Genre</p>
+    <p><b>Genre</b></p>
     <input v-model="findItem.genre">
-    <p>Description</p>
+    <p><b>Description</b></p>
     <textarea v-model = "findItem.description" placeholder = "Description"
               rows="5" cols="33">
     </textarea>
@@ -133,6 +139,8 @@ async editItem(item) {
   try {
     await axios.put("/api/items/" + item._id, {
       title: this.findItem.title,
+      author: this.findItem.author,
+      genre: this.findItem.genre,
       description: this.findItem.description,
     });
     this.findItem = null;
@@ -151,6 +159,7 @@ async editItem(item) {
 
 .actions {
   display: flex;
+  width: 380px; 
   align-items:flex-start;
   flex-direction: column;
   margin-left: 2vw;
@@ -170,10 +179,15 @@ async editItem(item) {
   margin-top: 8px;
   margin-left: 10px;
 }
-
-.add,
+.firstFunc {
+  display: grid; 
+  grid-template-columns: 1fr 1fr;
+}
+.add {
+  display: grid; 
+}
 .edit {
-  display: flex;
+  display: grid;
 }
 
 .circle {
@@ -192,20 +206,28 @@ textarea,
 select,
 button {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1em;
+  font-size: 1em; 
+  height: 30px; 
+  margin: 1vw; 
 }
 
 .form {
+  display: grid; 
   margin-right: 50px;
 }
 
 /* Uploaded images */
+.upload {
+  display: grid; 
+  
+}
 .upload h2 {
-  margin: 0px;
+  margin: 1vw;
 }
 
 .upload img {
   max-width: 300px;
+  max-height: 300px;
 }
 
 /* Suggestions */

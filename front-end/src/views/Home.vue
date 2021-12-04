@@ -1,15 +1,18 @@
 <template>
 <div class="home">
   <div class="home">
-  <section class="image-gallery">
+  <section class="image-gallery" v-if="items.length > 0">
     <div class="image" v-for="item in items" :key="item.id">
       <h2>{{item.title}}</h2>
       <h2>{{item.author}}</h2>
       <h2>{{item.genre}}</h2>
       <img :src="item.path" />
-      <p class = "descript">-{{item.description}}</p>
+      <p class="descript">-{{item.description}}</p>
     </div>
   </section>
+  <div id="no-books" v-else> 
+    <h3>No Books Added. Go to Admin in the footer and add books.</h3>
+  </div>
 </div>
 </div>
 </template>
@@ -69,12 +72,17 @@ methods: {
 .image img {
   width: 100%;
 }
+#no-books{
+  text-align: center;
+}
 
 /* Masonry on large screens */
 @media only screen and (min-width: 1024px) {
   .image-gallery {
     column-count: 4;
+    margin: auto;
   }
+  
 }
 
 /* Masonry on medium-sized screens */
