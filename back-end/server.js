@@ -20,6 +20,8 @@ const mongoose = require('mongoose');
 // Create a scheme for items in the museum: a title and a path to an image.
 const itemSchema = new mongoose.Schema({
   title: String,
+  author: String,
+  genre: String,
   description: String,
   path: String,
 });
@@ -49,6 +51,8 @@ app.get('/', (req, res) => {
 app.post('/api/items', async (req, res) => {
   const item = new Item({
     title: req.body.title,
+    author: req.body.author,
+    genre: req.body.genre,
     description: req.body.description,
     path: req.body.path,
   });
@@ -106,6 +110,8 @@ app.put('/api/items/:id', async (req, res) => {
       _id: req.params.id
     });
     cItem.title = await req.body.title;
+    cItem.author = await req.body.author;
+    cItem.genre = await req.body.genre;
     cItem.description = await req.body.description;
     await cItem.save();
   } catch (error) {
