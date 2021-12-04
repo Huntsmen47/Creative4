@@ -8,6 +8,8 @@
 <div class="add">
   <div class="form">
     <input v-model="title" placeholder="Title">
+    <input v-model="author" placeholder="Author">
+    <input v-model="genre" placeholder="Genre">
     <p></p>
     <textarea v-model = "description" placeholder = "Description"
               rows="5" cols="33">
@@ -17,6 +19,8 @@
   </div>
   <div class="upload" v-if="addItem">
     <h2>{{addItem.title}}</h2>
+    <h2>{{addItem.author}}</h2>
+    <h2>{{addItem.genre}}</h2>
     <h2>{{addItem.description}}</h2>
     <img :src="addItem.path" />
   </div>
@@ -34,16 +38,22 @@
     </div>
   </div>
   <div class="upload" v-if="findItem">
+    <p>Title</p>
     <input v-model="findItem.title">
-    <p></p>
-    <img :src="findItem.path" />
-  </div>
-  <div class="actions" v-if="findItem">
-    <button @click="deleteItem(findItem)">Delete</button>
-    <button @click="editItem(findItem)">Edit</button>
+    <p>Author</p>
+    <input v-model="findItem.author">
+    <p>Genre</p>
+    <input v-model="findItem.genre">
+    <p>Description</p>
     <textarea v-model = "findItem.description" placeholder = "Description"
               rows="5" cols="33">
     </textarea>
+    <p></p>
+  </div>
+  <div class="actions" v-if="findItem">
+    <img :src="findItem.path" />
+    <button @click="editItem(findItem)">Edit</button>
+    <button @click="deleteItem(findItem)">Delete</button>
   </div>
 </div>
 </div>
@@ -62,6 +72,8 @@ export default {
     findTitle: "",
     findItem: null,
     description: "",
+    author: "",
+    genre:"", 
   }
 },
 created() {
@@ -88,6 +100,8 @@ methods: {
     let r1 = await axios.post('/api/photos', formData);
     let r2 = await axios.post('/api/items', {
       title: this.title,
+      author: this.author,
+      genre: this.genre,
       description: this.description,
       path: r1.data.path
     });
@@ -138,6 +152,8 @@ async editItem(item) {
 .actions {
   display: flex;
   align-items:flex-start;
+  flex-direction: column;
+  margin-left: 2vw;
 }
 .image h2 {
   font-style: italic;

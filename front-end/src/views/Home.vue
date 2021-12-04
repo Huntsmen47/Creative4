@@ -4,6 +4,8 @@
   <section class="image-gallery">
     <div class="image" v-for="item in items" :key="item.id">
       <h2>{{item.title}}</h2>
+      <h2>{{item.author}}</h2>
+      <h2>{{item.genre}}</h2>
       <img :src="item.path" />
       <p class = "descript">-{{item.description}}</p>
     </div>
