@@ -139,6 +139,8 @@ async editItem(item) {
   try {
     await axios.put("/api/items/" + item._id, {
       title: this.findItem.title,
+      author: this.findItem.author,
+      genre: this.findItem.genre,
       description: this.findItem.description,
     });
     this.findItem = null;
